@@ -18,4 +18,4 @@ Default address: `http://localhost:8000`.
 - Logs Analyzer: parse access logs and show request totals, top IPs and URLs. The path is a server-side path on the machine running CtrlOps, such as `/var/log/nginx/access.log`.
 - Inventory: host overview and JSON export.
 - Deployments: inspect command lists, edit deployments in `ctrlops.yml`, run configured deployments and inspect logs.
-- Documentation link: placeholder link for hosted project documentation.
+- Documentation link: opens the CtrlOps GitHub Wiki.

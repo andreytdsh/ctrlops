@@ -30,7 +30,7 @@ from ctrlops.services.log_service import analyze_log
 from ctrlops.services.ssl_service import check_ssl
 from ctrlops.utils.formatting import format_bytes
 
-DOCS_URL = "https://github.com/andreytdsh/ctrlops#readme"
+DOCS_URL = "https://github.com/andreytdsh/ctrlops/wiki"
 HELP_EPILOG = f"Documentation: {DOCS_URL}"
 
 app = typer.Typer(

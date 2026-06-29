@@ -27,7 +27,9 @@ Screenshots can be added under `docs/screenshots.md` after running the Web UI lo
 
 ## Documentation
 
-Full documentation is in the [`docs/`](docs/) directory:
+Full documentation is available in the [GitHub Wiki](https://github.com/andreytdsh/ctrlops/wiki).
+
+The same documentation is also tracked in the [`docs/`](docs/) directory:
 
 - [Installation](docs/installation.md)
 - [CLI Usage](docs/cli-usage.md)
