@@ -25,12 +25,33 @@ It provides both a CLI and a Web UI for checking DNS records, monitoring SSL cer
 
 Screenshots can be added under `docs/screenshots.md` after running the Web UI locally.
 
+## Documentation
+
+Full documentation is in the [`docs/`](docs/) directory:
+
+- [Installation](docs/installation.md)
+- [CLI Usage](docs/cli-usage.md)
+- [Web UI](docs/web-ui.md)
+- [Modules](docs/modules.md)
+- [Configuration](docs/configuration.md)
+- [Examples](docs/examples.md)
+- [Roadmap](docs/roadmap.md)
+
 ## Installation
+
+Clone the repository first:
+
+```bash
+git clone https://github.com/andreytdsh/ctrlops.git
+cd ctrlops
+```
+
+Create a virtual environment and install CtrlOps:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e .
 ```
 
 On Windows PowerShell:
@@ -38,6 +59,12 @@ On Windows PowerShell:
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+pip install -e .
+```
+
+For development, install test and lint dependencies:
+
+```bash
 pip install -e ".[dev]"
 ```
 
@@ -72,6 +99,8 @@ Open `http://localhost:8000`.
 ## Docker
 
 ```bash
+git clone https://github.com/andreytdsh/ctrlops.git
+cd ctrlops
 docker compose up --build
 ```
 
@@ -98,8 +127,9 @@ Deployments can be configured from the CLI or Web UI, then executed with `ctrlop
 ## Development
 
 ```bash
-pytest
-ruff check .
+pip install -e ".[dev]"
+python -m pytest
+python -m ruff check .
 ```
 
 ## Roadmap
