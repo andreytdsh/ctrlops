@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - CtrlOps{% endblock %}
+{% block content %}
+<header class="page-header">
+  <div>
+    <p class="eyebrow">Infrastructure control</p>
+    <h1>Dashboard</h1>
+  </div>
+  <a class="button" href="/health">Refresh health</a>
+</header>
+
+<section class="metric-grid">
+  <div class="metric">
+    <span>CPU</span>
+    <strong>{{ health.cpu_usage_percent }}%</strong>
+  </div>
+  <div class="metric">
+    <span>RAM</span>
+    <strong>{{ health.ram.percent }}%</strong>
+  </div>
+  <div class="metric">
+    <span>Disk</span>
+    <strong>{{ health.disk.percent }}%</strong>
+  </div>
+  <div class="metric">
+    <span>Processes</span>
+    <strong>{{ health.process_count }}</strong>
+  </div>
+</section>
+
+<section class="two-col">
+  <div>
+    <h2>Recent backups</h2>
+    <table>
+      <thead><tr><th>Name</th><th>Size</th><th>Created</th></tr></thead>
+      <tbody>
+      {% for item in backups %}
+        <tr><td>{{ item.name }}</td><td>{{ item.size_bytes }} bytes</td><td>{{ item.created_at }}</td></tr>
+      {% else %}
+        <tr><td colspan="3">No backups yet.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h2>Deployments</h2>
+    <table>
+      <thead><tr><th>Name</th><th>Status</th></tr></thead>
+      <tbody>
+      {% for name in deployments %}
+        <tr><td>{{ name }}</td><td><span class="badge neutral">Configured</span></td></tr>
+      {% else %}
+        <tr><td colspan="2">No deployments configured.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Logs Analyzer - CtrlOps{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">Access logs</p><h1>Logs Analyzer</h1></div></header>
+<section class="info-block">
+  <strong>Log file path</strong>
+  <p>Use a path on the machine where CtrlOps is running. In the Web UI this is a server-side path, not a file from your browser.</p>
+  <ul>
+    <li>Nginx: <code>/var/log/nginx/access.log</code></li>
+    <li>Apache Debian/Ubuntu: <code>/var/log/apache2/access.log</code></li>
+    <li>Apache RHEL/CentOS: <code>/var/log/httpd/access_log</code></li>
+    <li>Project-local logs: <code>./logs/access.log</code></li>
+  </ul>
+</section>
+<form class="tool-form" method="get">
+  <input name="path" value="{{ path }}" placeholder="/var/log/nginx/access.log">
+  <button type="submit">Analyze</button>
+</form>
+{% if error %}<p class="alert">{{ error }}</p>{% endif %}
+{% if result %}
+<section class="metric-grid">
+  <div class="metric"><span>Total requests</span><strong>{{ result.total_requests }}</strong></div>
+  <div class="metric"><span>404</span><strong>{{ result.count_404 }}</strong></div>
+  <div class="metric"><span>500</span><strong>{{ result.count_500 }}</strong></div>
+  <div class="metric"><span>Status types</span><strong>{{ result.status_distribution | length }}</strong></div>
+</section>
+<section class="two-col">
+  <div>
+    <h2>Top IPs</h2>
+    <table><thead><tr><th>IP</th><th>Count</th></tr></thead><tbody>
+      {% for ip, count in result.top_ips %}<tr><td>{{ ip }}</td><td>{{ count }}</td></tr>{% endfor %}
+    </tbody></table>
+  </div>
+  <div>
+    <h2>Top URLs</h2>
+    <table><thead><tr><th>URL</th><th>Count</th></tr></thead><tbody>
+      {% for url, count in result.top_urls %}<tr><td>{{ url }}</td><td>{{ count }}</td></tr>{% endfor %}
+    </tbody></table>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

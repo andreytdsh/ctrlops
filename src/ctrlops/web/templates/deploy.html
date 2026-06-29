@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Deployments - CtrlOps{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">Automation</p><h1>Deployments</h1></div></header>
+{% if error %}<p class="alert">{{ error }}</p>{% endif %}
+{% if message %}<p class="notice">{{ message }}</p>{% endif %}
+{% if result %}<p class="notice">Deployment {{ result.name }} finished with status {{ result.status }}.</p><pre>{{ result.output }}</pre>{% endif %}
+<section class="two-col">
+  <div>
+    <h2>Configured deployments</h2>
+    <table>
+      <thead><tr><th>Name</th><th>Path</th><th>Commands</th><th>Actions</th></tr></thead>
+      <tbody>
+      {% for deployment in deployments %}
+        <tr>
+          <td>{{ deployment.name }}</td>
+          <td><code>{{ deployment.path }}</code></td>
+          <td>
+            <ol class="command-list">
+              {% for command in deployment.commands %}
+                <li><code>{{ command }}</code></li>
+              {% endfor %}
+            </ol>
+          </td>
+          <td class="actions">
+            <a class="button secondary" href="/deploy?selected={{ deployment.name }}">Details</a>
+            <a class="button secondary" href="/deploy?edit={{ deployment.name }}">Edit</a>
+            <a class="button" href="/deploy?name={{ deployment.name }}">Run</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4">No deployments configured in ctrlops.yml.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% if details %}
+      <h2>Deployment details</h2>
+      <table>
+        <tbody>
+          <tr><th>Name</th><td>{{ details.name }}</td></tr>
+          <tr><th>Path</th><td><code>{{ details.path }}</code></td></tr>
+          <tr>
+            <th>Commands</th>
+            <td>
+              <ol class="command-list">
+                {% for command in details.commands %}
+                  <li><code>{{ command }}</code></li>
+                {% endfor %}
+              </ol>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+  <div>
+    <h2>{% if form.name %}Edit deployment{% else %}Add deployment{% endif %}</h2>
+    <form class="stack-form" method="post" action="/deployments">
+      <label>
+        Name
+        <input name="name" value="{{ form.name }}" placeholder="myapp" required>
+      </label>
+      <label>
+        Working directory
+        <input name="path" value="{{ form.path }}" placeholder="/var/www/myapp" required>
+      </label>
+      <label>
+        Commands
+        <textarea name="commands" rows="6" placeholder="git pull&#10;docker compose up -d --build" required>{{ form.commands }}</textarea>
+      </label>
+      <button type="submit">Save deployment</button>
+    </form>
+  </div>
+</section>
+<h2>Recent logs</h2>
+{% for item in logs %}
+  <div class="log-entry">
+    <div><strong>{{ item.name }}</strong> <span class="badge {{ item.status }}">{{ item.status }}</span> {{ item.created_at }}</div>
+    <pre>{{ item.output }}</pre>
+  </div>
+{% else %}
+  <p>No deployment logs yet.</p>
+{% endfor %}
+{% endblock %}

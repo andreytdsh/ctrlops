@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ctrlops"
+version = "0.1.0"
+description = "A lightweight DevOps toolkit CLI and Web UI for small infrastructure."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{ name = "CtrlOps Contributors" }]
+dependencies = [
+  "dnspython>=2.6.1",
+  "fastapi>=0.115.0",
+  "jinja2>=3.1.4",
+  "psutil>=6.0.0",
+  "python-dotenv>=1.0.1",
+  "pyyaml>=6.0.2",
+  "rich>=13.7.1",
+  "typer>=0.12.5",
+  "uvicorn>=0.30.6",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.27.2",
+  "pytest>=8.3.2",
+  "ruff>=0.6.4",
+]
+
+[project.scripts]
+ctrlops = "ctrlops.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ctrlops"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

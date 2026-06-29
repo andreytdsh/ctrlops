@@ -1,0 +1,10 @@
+app:
+  backup_dir: ./backups
+  database_url: sqlite:///ctrlops.db
+  host: 127.0.0.1
+  port: 8000
+deployments:
+  demo:
+    path: .
+    commands:
+    - git status

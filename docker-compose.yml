@@ -1,0 +1,13 @@
+services:
+  ctrlops:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ctrlops.yml:/app/ctrlops.yml:ro
+      - ./runtime:/app/runtime
+    environment:
+      CTRLOPS_BACKUP_DIR: /app/runtime/backups
+      CTRLOPS_DATABASE_URL: sqlite:////app/runtime/ctrlops.db
+      CTRLOPS_HOST: 0.0.0.0
+      CTRLOPS_PORT: 8000

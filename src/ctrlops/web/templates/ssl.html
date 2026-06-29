@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}SSL Checker - CtrlOps{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">Certificates</p><h1>SSL Checker</h1></div></header>
+<form class="tool-form" method="get">
+  <input name="domain" value="{{ domain }}" placeholder="example.com">
+  <button type="submit">Check</button>
+</form>
+{% if error %}<p class="alert">{{ error }}</p>{% endif %}
+{% if result %}
+<section class="metric-grid">
+  <div class="metric"><span>Status</span><strong><span class="badge {{ result.status | lower }}">{{ result.status }}</span></strong></div>
+  <div class="metric"><span>Days remaining</span><strong>{{ result.days_remaining }}</strong></div>
+  <div class="metric"><span>Issuer</span><strong>{{ result.issuer }}</strong></div>
+  <div class="metric"><span>Common name</span><strong>{{ result.common_name }}</strong></div>
+</section>
+<table>
+  <tbody>
+    <tr><th>Valid from</th><td>{{ result.valid_from }}</td></tr>
+    <tr><th>Valid until</th><td>{{ result.valid_until }}</td></tr>
+    <tr><th>SANs</th><td>{{ result.sans | join(", ") }}</td></tr>
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

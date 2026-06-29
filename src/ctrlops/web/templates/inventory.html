@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Inventory - CtrlOps{% endblock %}
+{% block content %}
+<header class="page-header">
+  <div><p class="eyebrow">Host profile</p><h1>Inventory</h1></div>
+  <a class="button" href="/inventory.json">Export JSON</a>
+</header>
+<table>
+  <tbody>
+    <tr><th>Hostname</th><td>{{ inventory.hostname }}</td></tr>
+    <tr><th>OS</th><td>{{ inventory.os }}</td></tr>
+    <tr><th>Kernel</th><td>{{ inventory.kernel }}</td></tr>
+    <tr><th>CPU</th><td>{{ inventory.cpu }}</td></tr>
+    <tr><th>RAM</th><td>{{ inventory.ram_bytes }} bytes</td></tr>
+    <tr><th>Open ports</th><td>{{ inventory.open_ports | join(", ") }}</td></tr>
+  </tbody>
+</table>
+<h2>Network interfaces</h2>
+<table><thead><tr><th>Name</th><th>Addresses</th></tr></thead><tbody>
+{% for name, addresses in inventory.network_interfaces.items() %}
+  <tr><td>{{ name }}</td><td>{{ addresses | join(", ") }}</td></tr>
+{% endfor %}
+</tbody></table>
+{% endblock %}

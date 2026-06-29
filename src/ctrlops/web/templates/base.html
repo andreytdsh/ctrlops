@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CtrlOps{% endblock %}</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/">CtrlOps</a>
+    <nav>
+      <a href="/">Dashboard</a>
+      <a href="/dns">DNS Inspector</a>
+      <a href="/ssl">SSL Checker</a>
+      <a href="/health">Server Health</a>
+      <a href="/backups">Backups</a>
+      <a href="/logs">Logs Analyzer</a>
+      <a href="/inventory">Inventory</a>
+      <a href="/deploy">Deployments</a>
+      <a href="https://github.com/" target="_blank" rel="noreferrer">Documentation</a>
+    </nav>
+  </aside>
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

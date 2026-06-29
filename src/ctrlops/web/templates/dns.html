@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}DNS Inspector - CtrlOps{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">Network</p><h1>DNS Inspector</h1></div></header>
+<form class="tool-form" method="get">
+  <input name="domain" value="{{ domain }}" placeholder="example.com">
+  <button type="submit">Inspect</button>
+  {% if result %}<button type="button" data-copy-target="dns-json">Copy result</button>{% endif %}
+</form>
+{% if error %}<p class="alert">{{ error }}</p>{% endif %}
+{% if result %}
+<table>
+  <thead><tr><th>Type</th><th>Value</th><th>TTL</th></tr></thead>
+  <tbody>
+  {% for type, records in result.records.items() %}
+    {% for record in records %}
+      <tr><td>{{ type }}</td><td>{{ record.value }}</td><td>{{ record.ttl }}</td></tr>
+    {% else %}
+      <tr><td>{{ type }}</td><td>-</td><td>-</td></tr>
+    {% endfor %}
+  {% endfor %}
+  </tbody>
+</table>
+<pre id="dns-json">{{ result | tojson(indent=2) }}</pre>
+{% endif %}
+{% endblock %}

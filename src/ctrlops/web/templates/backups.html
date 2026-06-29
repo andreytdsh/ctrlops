@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Backups - CtrlOps{% endblock %}
+{% block content %}
+<header class="page-header"><div><p class="eyebrow">Archives</p><h1>Backups</h1></div></header>
+<form class="tool-form" method="get">
+  <input name="path" value="{{ path }}" placeholder="./data">
+  <button type="submit">Create backup</button>
+</form>
+{% if message %}<p class="notice">{{ message }}</p>{% endif %}
+{% if error %}<p class="alert">{{ error }}</p>{% endif %}
+<table>
+  <thead><tr><th>Name</th><th>File</th><th>Size</th><th>Created</th></tr></thead>
+  <tbody>
+  {% for item in backups %}
+    <tr><td>{{ item.name }}</td><td><code>{{ item.file }}</code></td><td>{{ item.size_bytes }} bytes</td><td>{{ item.created_at }}</td></tr>
+  {% else %}
+    <tr><td colspan="4">No backups yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

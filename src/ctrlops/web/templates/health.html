@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Server Health - CtrlOps{% endblock %}
+{% block content %}
+<header class="page-header">
+  <div><p class="eyebrow">Local system</p><h1>Server Health</h1></div>
+  <a class="button" href="/health">Refresh</a>
+</header>
+<section class="metric-grid">
+  <div class="metric"><span>CPU</span><strong>{{ health.cpu_usage_percent }}%</strong></div>
+  <div class="metric"><span>RAM</span><strong>{{ health.ram.percent }}%</strong></div>
+  <div class="metric"><span>Disk</span><strong>{{ health.disk.percent }}%</strong></div>
+  <div class="metric"><span>Processes</span><strong>{{ health.process_count }}</strong></div>
+</section>
+<table>
+  <tbody>
+    <tr><th>OS</th><td>{{ health.os }}</td></tr>
+    <tr><th>Kernel</th><td>{{ health.kernel }}</td></tr>
+    <tr><th>Uptime</th><td>{{ health.uptime_seconds }} seconds</td></tr>
+    <tr><th>Load average</th><td>{{ health.load_average | join(", ") }}</td></tr>
+    <tr><th>Docker</th><td>{{ health.docker.version or "not available" }}</td></tr>
+  </tbody>
+</table>
+{% endblock %}
