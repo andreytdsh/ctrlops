@@ -21,10 +21,6 @@ It provides both a CLI and a Web UI for checking DNS records, monitoring SSL cer
 - FastAPI, Jinja2 and HTMX Web UI.
 - SQLite persistence for backups and deployment logs.
 
-## Screenshots
-
-Screenshots can be added under `docs/screenshots.md` after running the Web UI locally.
-
 ## Documentation
 
 Full documentation is available in the [GitHub Wiki](https://github.com/andreytdsh/ctrlops/wiki).
